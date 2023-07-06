@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+
+    std::string aplicarRegla(const std::string& cadena, char c1, char c2) {
+    std::string encriptada = cadena;
+
+   
+    std::replace(encriptada.begin(), encriptada.end(), c1, '!');
+    std::replace(encriptada.begin(), encriptada.end(), c2, c1);
+    std::replace(encriptada.begin(), encriptada.end(), '!', c2);
+
+    return encriptada;
+}
+
+int main() {
+    int M, N;
+    std::cin >> M >> N;
+
+   
+    std::vector<std::pair<char, char>> reglas;
+    for (int i = 0; i < M; i++) {
+        char c1, c2;
+        std::cin >> c1 >> c2;
+        reglas.emplace_back(c1, c2);
+    }
+
+    
+    for (int i = 0; i < N; i++) {
+        std::string encriptada;
+        std::cin >> encriptada;
+
+   
+        for (int j = M - 1; j >= 0; j--) {
+            char c1 = reglas[j].first;
+            char c2 = reglas[j].second;
+            encriptada = aplicarRegla(encriptada, c1, c2);
+        }
+
+        std::cout << encriptada << std::endl;
+    }
+
+    return 0;
+}
